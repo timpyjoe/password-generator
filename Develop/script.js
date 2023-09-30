@@ -1,21 +1,22 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
-// Empty variable that will be populated as the user decides what to include in their password
-var passOptions = "";
-
 // Placeholders for all different options that can be included in the password
 var lowerCase = "abcdefghijklmnopqrstuvwxyz";
 var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var numbers = "1234567890";
-var specialChar = " !#%$&'()*+,-./:;<=>?@[\]^_`{|}~";
+var specialChar = " !#%$&'()*+,-./:;<=>?@[]^_`{|}~";
+
+var passLength = "";
 
 // Determines the password length
 function passwordLength() {
-  var passLength = prompt("How long would you like your password to be? (8-20)");
+  passLength = prompt("How long would you like your password to be? (8-128)");
+  if (passLength === null) {
+    return;
+  }
   passLength = passLength * 1;
-  console.log(typeof passLength);
-  if (passLength < 8 || passLength > 20) {
+  if (passLength < 8 || passLength > 128) {
     alert("Please enter a valid password length.");
     passwordLength();
   }
@@ -23,20 +24,51 @@ function passwordLength() {
     alert("Please enter a number.");
     passwordLength();
   }
+  return passLength;
+}
+
+
+// Asks users what kind of characters to include in their password
+function addCharacters() {
+  // Empty variable that will be populated as the user decides what to include in their password
+  var passOptions = "";
+  var addLower = confirm("Would you like to include lower case letters in your password?");
+  if (addLower) {
+    passOptions += lowerCase;
+  }
+  var addUpper = confirm("Would you like to include upper case letters in your password?");
+  if (addUpper) {
+    passOptions += upperCase;
+  }
+  var addNumbers = confirm("Would you like to include numbers in your password?");
+  if (addNumbers) {
+    passOptions += numbers;
+  }
+  var addSpecials = confirm("Would you like to include special characters in your password?");
+  if (addSpecials) {
+    passOptions += specialChar;
+  }
+  console.log(passOptions);
 }
 
 // Generates the password
 function generatePassword() {
   passwordLength();
-
+  console.log(passLength);
+  if (passLength === null) {
+    return;
+  }    
+  addCharacters();
+  
 }
-
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
+  if (passLength !== null) {
+    passwordText.value = password;
+  }
 
 }
 
