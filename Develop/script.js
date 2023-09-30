@@ -8,6 +8,7 @@ var numbers = "1234567890";
 var specialChar = " !#%$&'()*+,-./:;<=>?@[]^_`{|}~";
 
 var passLength = "";
+var passOptions = "";
 
 // Determines the password length
 function passwordLength() {
@@ -31,7 +32,7 @@ function passwordLength() {
 // Asks users what kind of characters to include in their password
 function addCharacters() {
   // Empty variable that will be populated as the user decides what to include in their password
-  var passOptions = "";
+  passOptions = "";
   var addLower = confirm("Would you like to include lower case letters in your password?");
   if (addLower) {
     passOptions += lowerCase;
@@ -48,17 +49,21 @@ function addCharacters() {
   if (addSpecials) {
     passOptions += specialChar;
   }
-  console.log(passOptions);
+
+  if (passOptions === "") {
+    alert("Please select at least one option.")
+    addCharacters();
+  }
 }
 
 // Generates the password
 function generatePassword() {
   passwordLength();
-  console.log(passLength);
   if (passLength === null) {
     return;
   }    
   addCharacters();
+  console.log(passOptions);
   
 }
 // Write password to the #password input
