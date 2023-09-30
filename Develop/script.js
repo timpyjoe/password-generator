@@ -5,10 +5,16 @@ var generateBtn = document.querySelector("#generate");
 var lowerCase = "abcdefghijklmnopqrstuvwxyz";
 var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var numbers = "1234567890";
-var specialChar = " !#%$&'()*+,-./:;<=>?@[]^_`{|}~";
+var specialChar = "!#%$&'()*+,-./:;<=>?@[]^_`{|}~";
 
 var passLength = "";
 var passOptions = "";
+
+// Function to randomly select an index from an array
+function getRandom(array) {
+  var index = Math.floor(Math.random() * array.length);
+  return array[index];
+}
 
 // Determines the password length
 function passwordLength() {
@@ -56,6 +62,16 @@ function addCharacters() {
   }
 }
 
+// Randomly selects the characters and adds them to the password
+function selectChars() {
+  passOptions.split("");
+  var tempPassword = "";
+  for (i = 0; i < passLength; i++) {
+    tempPassword += getRandom(passOptions);
+  }
+  return tempPassword;
+}
+
 // Generates the password
 function generatePassword() {
   passwordLength();
@@ -63,9 +79,12 @@ function generatePassword() {
     return;
   }    
   addCharacters();
-  console.log(passOptions);
+  var password = selectChars();
+  return password;
   
 }
+
+
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
