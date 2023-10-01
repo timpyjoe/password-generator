@@ -89,7 +89,7 @@ function generatePassword() {
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-
+  // this prevents the old password from being overwritten with "undefined" if the user exits the password creation
   if (passLength !== null) {
     passwordText.value = password;
   }
